@@ -20,7 +20,7 @@ def scrape_website(url):
 
 @app.route("/scrape", methods=["POST"])
 def scrape():
-    url = request.json.get("url")
+    url = request.json.get("https://en.wikipedia.org/wiki/British_Raj")
     if not url:
         return jsonify({"error": "URL is required"}), 400
     return jsonify(scrape_website(url))

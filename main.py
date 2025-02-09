@@ -2,21 +2,26 @@ from flask import Flask
 
 app = Flask(__name__)
 
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 def get_driver():
     options = Options()
-    options.add_argument("--headless")  # Run in headless mode
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.binary_location = "/usr/bin/google-chrome"  # Explicitly specify the Chrome binary
 
+    # Set binary location to downloaded Chromium
+    options.binary_location = os.path.abspath("./chrome-linux/chrome")
+
+    # Start WebDriver
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     return driver
+
 
 @app.route("/")
 def scrape():

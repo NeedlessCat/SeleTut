@@ -1,17 +1,18 @@
 from flask import Flask
+
+app = Flask(__name__)
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
-app = Flask(__name__)
-
 def get_driver():
     options = Options()
-    options.add_argument("--headless")  # Run Chrome in headless mode
-    options.add_argument("--no-sandbox")  # Required for Render
-    options.add_argument("--disable-dev-shm-usage")  # Overcome limited resources
-    options.add_argument("--disable-gpu")  # Disable GPU for headless mode
+    options.add_argument("--headless")  # Run in headless mode
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.binary_location = "/usr/bin/google-chrome"  # Explicitly specify the Chrome binary
 
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)

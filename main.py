@@ -20,7 +20,7 @@ def get_driver():
 @app.route("/")
 def scrape():
     driver = get_driver()
-    driver.get("https://example.com")
+    driver.get("https://en.wikipedia.org/wiki/British_Raj")
     page_source = driver.page_source
     driver.quit()
     return f"Scraped Page Length: {len(page_source)}"
